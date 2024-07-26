@@ -1,0 +1,18 @@
+<launch>
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find navigation_kct)/navigation.rviz" />
+
+      
+      <!--include file="$(find drivers_package)/launch/drivers.launch"/-->
+     <include file="$(find rplidar_ros)/launch/rplidar_a3.launch"/> 
+     <!--- Run AMCL -->
+      <include file="$(find navigation_kct)/launch/amcl.launch" />
+
+      <!--- Run Move Base -->
+      <include file="$(find navigation_kct)/launch/move_base.launch" />
+
+
+</launch>

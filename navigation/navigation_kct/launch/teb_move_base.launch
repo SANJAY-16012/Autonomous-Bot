@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find navigation_kct)/maps/map5.yaml"/>
+  <arg name="base_global_planner" default="global_planner/GlobalPlanner"/>
+  <arg name="base_local_planner" default="teb_local_planner/TebLocalPlannerROS"/>
+  
+  <node pkg="move_base" type="move_base" name="move_base" output="screen" >
+    <param name="base_global_planner" value="$(arg base_global_planner)"/>
+    <param name="base_local_planner" value="$(arg base_local_planner)"/>
+    
+    <rosparam file="$(find navigation_kct)/config/teb_common_costmap.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find navigation_kct)/config/teb_common_costmap.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find navigation_kct)/config/teb_global_costmap.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find navigation_kct)/config/teb_local_costmap.yaml" command="load" ns="local_costmap" />
+
+    <rosparam file="$(find navigation_kct)/config/teb_planner.yaml" command="load"/>
+  </node>
+  
+</launch>

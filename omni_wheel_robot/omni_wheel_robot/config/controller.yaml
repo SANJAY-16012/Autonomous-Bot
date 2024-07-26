@@ -1,0 +1,76 @@
+robot_base_joint_publisher:
+  type: "joint_state_controller/JointStateController"
+  publish_rate: 50
+
+robot_base_velocity_controller:
+  type: "holonomic_controller/HolonomicController"
+  wheels: ['front_left_wheel_joint', 'front_right_wheel_joint', 'rear_left_wheel_joint', 'rear_right_wheel_joint']
+  pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  cmd_vel_timeout: 10
+  wheel_separation: 0.55  # Distance between wheels
+  wheel_radius: 0.0635  # Radius of robot wheels
+  base_frame_id: base_link
+  odom_frame_id: odom
+  enable_odom_tf: true
+  estimate_velocity_from_position: false
+  wheel_separation_multiplier: 1.0
+  wheel_radius_multiplier: 1.0
+  linear:
+    x:
+      has_velocity_limits: true
+      max_velocity: 2.0  # Maximum linear velocity (m/s)
+      has_acceleration_limits: true
+      max_acceleration: 3.0  # Maximum linear acceleration (m/s^2)
+    y:
+      has_velocity_limits: true
+      max_velocity: 2.0  # Maximum lateral velocity (m/s)
+      has_acceleration_limits: true
+      max_acceleration: 3.0  # Maximum lateral acceleration (m/s^2)
+  angular:
+    z:
+      has_velocity_limits: true
+      max_velocity: 3.0  # Maximum angular velocity (rad/s)
+      has_acceleration_limits: true
+      max_acceleration: 6.0  # Maximum angular acceleration (rad/s^2)
+
+
+# robot_base_joint_publisher:
+#   type: "joint_state_controller/JointStateController"
+#   publish_rate: 50
+
+# robot_base_velocity_controller:
+#   type: "diff_drive_controller/DiffDriveController"
+#   left_wheel: ['front_left_wheel_joint', 'rear_left_wheel_joint']
+#   right_wheel: ['front_right_wheel_joint', 'rear_right_wheel_joint']
+#   publish_rate: 50
+#   pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+#   twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+#   cmd_vel_timeout: 0.5
+#   wheel_separation : 0.55
+#   wheel_radius : 0.0635
+#   base_frame_id: base_link
+#   odom_frame_id: odom
+#   enable_odom_tf: true
+#   estimate_velocity_from_position: false
+#   wheel_separation_multiplier: 1.0 
+#   wheel_radius_multiplier    : 1.0 
+#   linear:
+#     x:
+#       has_velocity_limits    : true
+#       max_velocity           : 2.0   
+#       has_acceleration_limits: true
+#       max_acceleration       : 3.0   
+#   angular:
+#     z:
+#       has_velocity_limits    : true
+#       max_velocity           : 3.0   
+#       has_acceleration_limits: true
+#       max_acceleration       : 6.0   
+
+# /gazebo_ros_control:
+#     pid_gains:
+#       front_left_wheel_joint: {p: 20.0, i: 0.01, d: 0.0, i_clamp: 0.0}
+#       front_right_wheel_joint: {p: 20.0, i: 0.01, d: 0.0, i_clamp: 0.0}
+#       rear_left_wheel_joint: {p: 20.0, i: 0.01, d: 0.0, i_clamp: 0.0}
+#       rear_right_wheel_joint: {p: 20.0, i: 0.01, d: 0.0, i_clamp: 0.0}

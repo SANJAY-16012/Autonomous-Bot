@@ -1,0 +1,8 @@
+conservative_reset:
+    reset_distance: 1
+rotate_recovery:
+    sim_granularity: 0.017
+    frequency: 20
+aggressive_reset:
+    reset_distance: 0.1
+

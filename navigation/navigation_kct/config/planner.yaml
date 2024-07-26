@@ -1,0 +1,133 @@
+controller_frequency: 20.0
+recovery_behaviour_enabled: true
+oscillation_distance: 0.5
+oscillation_timeout: 10 #change later
+planner_patience: 5.0
+controller_patience: 15.0
+recovery_behaviors:
+  - {name: conservative_reset, type: clear_costmap_recovery/ClearCostmapRecovery}
+  - {name: aggressive_reset, type: clear_costmap_recovery/ClearCostmapRecovery}
+#  - {name: stepback_and_steerturn_recovery, type: stepback_and_steerturn_recovery/StepBackAndSteerTurnRecovery}
+
+GlobalPlanner: # Also see: http://wiki.ros.org/global_planner
+
+  allow_unknown: false # Allow planner to plan through unknown space, default true
+  #Needs to have track_unknown_space: true in the obstacle / voxel layer (in costmap_commons_param) to work
+  default_tolerance: 0.2 # If goal in obstacle, plan to the closest point in radius default_tolerance, default 0.0
+  visualize_potential: true # Specifies whether or not to visualize the potential area computed via a PointCloud2.
+  use_dijkstra: false # Use dijkstra's algorithm. Otherwise, A*, default true
+  use_quadratic: false # Use the quadratic approximation of the potential. Otherwise, use a simpler calculation, default true
+  use_grid_path: false # Create a path that follows the grid boundaries. Otherwise, use a gradient descent method, default false
+  old_navfn_behavior: true # Exactly mirror behavior of navfn, use defaults for other boolean parameters, default false
+  lethal_cost: 253 # default 253
+  neutral_cost: 50 # default 50
+  cost_factor: 3.0 # Factor to multiply each cost from costmap by, default 3.0
+  publish_potential: true # Publish Potential Costmap (this is not like the navfn pointcloud2 potential), default true
+
+  planner_window_x: 0.0 # default 0.0
+  planner_window_y: 0.0 # default 0.0
+  publish_scale: 100 # Scale by which the published potential gets multiplied, default 100
+  planner_costmap_publish_frequency: 0.0 # default 0.0
+#  orientation_mode: 1
+
+
+# DWAPlannerROS:
+#   # Robot configuration parameters
+#   acc_lim_x: 2.5
+#   acc_lim_y: 2.5
+#   acc_lim_th: 3.2 #0.5
+
+#   max_vel_x: 0.5
+#   min_vel_x: 0.1
+#   max_vel_y: 0
+#   min_vel_y: 0
+
+#   max_vel_trans: 0.5
+#   min_vel_trans: 0.1
+#   max_vel_theta: 1.0  #1.ssssss
+#   min_vel_theta: -1.0 #0.2
+
+#   # Goal Tolerance Parameters
+#   yaw_goal_tolerance: 0.1
+#   xy_goal_tolerance: 0.1 #0.2
+#   latch_xy_goal_tolerance: true
+#   holonomic_robot: true
+
+#   # Forward Simulation Parameters
+#   sim_time: 1.5
+#   sim_granularity: 0.02
+#   vx_samples: 20 #50
+#   vy_samples: 1
+#   vth_samples: 40 #50
+#    #penalize_negative_x: trues
+
+#   # Trajectory scoring parameters
+#   path_distance_bias: 32.0 # 20.0 The weighting for how much the controller should stay close to the path it was given
+#   goal_distance_bias: 24.0 # 30.0The weighting for how much the controller should attempt to reach its local goal, also controls speed
+#   occdist_scale: 0.05 # The weighting for how much the controller should attempt to avoid obstacles
+#   forward_point_distance: 0 # The distance from the center point of the robot to place an additional scoring point, in meters
+#   # stop_time_buffer: 0.2  # The amount of time that the robot must stThe absolute value of the veolicty at which to start scaling the robot's footprint, in m/sop before a collision in order for a trajectory to be considered valid in seconds
+#   # scaling_speed: 0.25 # The absolute value of the veolicty at which to start scaling the robot's footprint, in m/s
+#   # max_scaling_factor: 0.2 # The maximum factor to scale the robot's footprint by
+
+#   # Oscillation Prevention Parameters
+#   oscillation_reset_dist: 0.05 #How far the robot must travel in meters before oscillation flags are reset (double, default: 0.05)
+#   #Debug
+#   publish_traj_pc : true
+#   publish_cost_grid_pc: true
+#   prune_plan: true
+
+# TrajectoryPlannerROS:
+#   max_vel_x: 1.5
+#   min_vel_x: 1.0
+#   max_vel_y: 0.0 # Set max_vel_y for holonomic movement
+#   min_vel_y: -0.0  # Set min_vel_y for holonomic movement
+#   max_trans_vel: 0.3
+#   min_trans_vel: 0.1
+#   max_rot_vel: 1.0
+#   min_rot_vel: 0.8
+#   acc_lim_x: 1.0
+#   acc_lim_y: 1.0
+#   acc_lim_theta: 1.0
+#   holonomic_robot: false  # Enable holonomic movement
+#   y_vels: [-1.0, 0.0, 1.0]  # Allowed y-axis velocities for holonomic movement
+
+DWAPlannerROS:
+  # Robot configuration parameters
+  acc_lim_x: 3.0          # Max linear acceleration limit in x (m/s^2)
+  acc_lim_y: 3.0          # Max linear acceleration limit in y (m/s^2) - set to 0 for non-holonomic
+  acc_lim_th: 1.25         # Max angular acceleration limit (rad/s^2)
+
+  max_vel_x: 1.5        # Max forward linear velocity (m/s)
+  min_vel_x: -1.5          # Min forward linear velocity (m/s)
+  max_vel_y: 1.5          # Max sideways linear velocity (m/s) - set to 0 for non-holonomic
+  min_vel_y: -1.5          # Min sideways linear velocity (m/s) - set to 0 for non-holonomic
+  max_vel_trans: 3.5      # Max translational velocity (m/s) 
+  min_vel_trans: 0.1      # Min translational velocity (m/s)
+  max_vel_theta: 1.0      # Max rotational velocity (rad/s)
+  min_vel_theta: -1.0     # Min rotational velocity (rad/s)
+
+  # Goal tolerance parameters
+  xy_goal_tolerance: 0.1  # Tolerance in xy when reaching the goal (m)
+  yaw_goal_tolerance: 0.1 # Tolerance in yaw when reaching the goal (rad)
+
+  # Forward simulation parameters
+  sim_time: 1.5           # Time window for trajectory simulation (s)
+  sim_granularity: 0.025  # Resolution of the simulation (m)
+  vx_samples: 20          # Number of x velocity samples
+  vy_samples: 20           # Number of y velocity samples (0 for non-holonomic)
+  vtheta_samples: 20       # Number of theta velocity samples
+
+  # Trajectory scoring parameters
+  path_distance_bias: 32.0     # Weight for staying close to the path
+  goal_distance_bias: 24.0     # Weight for reaching the goal
+  occdist_scale: 0.1           # Weight for avoiding obstacles
+
+  # Oscillation prevention parameters
+  oscillation_reset_dist: 0.05  # Distance before oscillation flags are reset (m)
+
+  # Debugging and visualization
+  publish_traj_pc: true         # Publish trajectory point cloud
+  publish_cost_grid_pc: false   # Publish cost grid point cloud
+  prune_plan: true              # Prune the plan for optimization
+  penalize_negative_x: true

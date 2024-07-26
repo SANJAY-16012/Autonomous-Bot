@@ -1,0 +1,25 @@
+local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link
+  update_frequency: 3.0
+  publish_frequency: 3.0
+  rolling_window: true
+  width: 3.0
+  height: 3.0
+
+plugins:
+  - {name: static, type: "costmap_2d::StaticLayer"}
+  - {name: obstacles, type: "costmap_2d::ObstacleLayer"}
+  - {name: inflation, type: "costmap_2d::InflationLayer"}
+
+static:
+  map_topic: /map
+  subscribe_to_updates: true
+
+# obstacles:                   It is commented to avoid considering ball as obstacles...
+#   observation_sources: laser
+#   laser: {data_type: LaserScan, clearing: true, marking: true, topic: /scan, inf_is_valid: true, max_obstacle_height: 0.8}
+
+inflation:
+  inflation_radius: 0.09
+  cost_scaling_factor: 3.25

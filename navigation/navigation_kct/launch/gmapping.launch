@@ -1,0 +1,7 @@
+<launch>
+<!--include file="$(find drivers_package)/launch/drivers.launch" /-->
+<include file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
+<!--- Run Move Base -->
+<include file="$(find navigation_kct)/launch/move_base.launch" />
+<include file="$(find navigation_kct)/launch/gmapping_slam.launch" />
+</launch>
